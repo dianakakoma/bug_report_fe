@@ -3,9 +3,16 @@
     <img src="@/assets/happy-ladybug.png" width="100" />
     <h1>{{ message }}</h1>
     <h2>A bug reporting tool built for the end user!</h2>
-    <!-- Sign Up Button -->
-    <button><a href="/signup">Sign up to report bugs or to submit your great idea!</a></button>
+    <!-- Sign Up | Login | Logout Buttons -->
+    <button class="signup_btn"><a href="/signup">Sign up!</a></button>
+    |
+    <button>
+      <a href="/login">Login</a>
+    </button>
+    |
+    <button><a href="/logout">Logout</a></button>
     <hr />
+    <!-- Index Action - Report -->
     <div v-for="report in reports">
       <p>Report ID:{{ report.id }}</p>
       <h2>Bug or Bright Idea: {{ report.report_type }}</h2>
@@ -16,6 +23,7 @@
       <p>User Id: {{ report.user_id }}</p>
       <p style="color:red">|</p>
     </div>
+    <!--Create Action - Report -->
   </div>
 </template>
 
