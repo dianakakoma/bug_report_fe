@@ -23,7 +23,34 @@
       <p>User Id: {{ report.user_id }}</p>
       <p style="color:red">|</p>
     </div>
-    <!--Create Action - Report -->
+    <!-- New/Create Action - Reports -->
+    <div>
+      <h1>File a New Report</h1>
+      Bug or Bright Idea:
+      <input type="text" v-model="newReport_type" />
+      <br />
+
+      description:
+      <input type="text" v-model="newDescription" />
+      <br />
+      suggested_fix:
+      <input type="text" v-model="newSuggestedFix" />
+      <br />
+      URL:
+      <input type="string" v-model="newURL" />
+      <br />
+      Status:
+      <input type="string" v-model="newStatus" />
+      <br />
+      <!--User_id:
+      <input type="integer" v-model="newUserId" />
+      <br /> -->
+      <!-- insert ScreenShot URL here
+      Screenshot:
+      <input type="string" v-model="newScreenShot" />
+    -->
+      <button v-on:click="createReport()">Create Report</button>
+    </div>
   </div>
 </template>
 
@@ -35,7 +62,11 @@ export default {
   data: function() {
     return {
       message: "Bug Report!",
-      reports: []
+      reports: [],
+      newDescription: "",
+      newSuggestedFix: "",
+      newURL: "",
+      newStatus: ""
     };
   },
   created: function() {
@@ -43,6 +74,19 @@ export default {
       this.reports = response.data;
     });
   },
-  methods: {}
+  methods: {
+    createReport: function() {
+      var params = {
+        description: this.newDescription,
+        suggested_fix: this.newSuggestedFix,
+        url: this.newURL,
+        status: this.newStatus
+      };
+      axios.post("/api/reports", params).then((reponse) => {
+        this.reports.push(reponse.data);
+        (this.newDescription = ""), (this.newReport_type = ""), (this.newURL = ""), (this.newStatus = "");
+      });
+    }
+  }
 };
 </script>
