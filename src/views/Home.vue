@@ -28,7 +28,7 @@
         <a v-bind:href="report.url">{{ report.url }}</a>
         <p>Submitted by: {{ report.name }}</p>
       </div>
-      <p style="color:red">|</p>
+      <p style="color:red">***</p>
     </div>
     <!-- New/Create Action - Reports -->
     <div>
