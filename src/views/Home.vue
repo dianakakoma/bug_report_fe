@@ -15,26 +15,36 @@
     |
     <button><a href="/logout">Logout</a></button>
     <hr />
-    <!-- Index Action for Reports -->
-    <div v-for="report in reports">
+<!-- Index Action for Reports -->
+    <div v-for="report in reports" style="text-align:left">
       <p>Report ID:{{ report.id }}</p>
-      <h2>Bug or Bright Idea: {{ report.report_type }}</h2>
-      <h3>Report Description: {{ report.description }}</h3>
-      <!--Show Action -->
+      <h3>Report Type: {{ report.report_type }}</h3>
+      <p>Report Description: {{ report.description }}</p>
+<!--Show Action -->
       <button v-on:click="showReport(report)" style="background-color: blue; color:white">Show More...</button>
-      <div v-if="currentReport ===report">
+      <div v-if="currentReport === report">
         <p>Suggest Fix: {{ report.suggested_fix }}</p>
+
         <p>Current Status:{{ report.status }}</p>
         <a v-bind:href="report.url">{{ report.url }}</a>
         <p>Submitted by: {{ report.name }}</p>
+<!-- Update/Patch action - Report -->
+        <button v-on:click="updateReport(report)">Update Suggested Fix</button>
+
       </div>
       <p style="color:red">|</p>
     </div>
-    <!-- New/Create Action - Reports -->
+<!-- New/Create Action - Reports -->
     <div>
-      <h1>File a New Report</h1>
-      Bug or Bright Idea:
-      <input type="text" v-model="newReporType" />
+
+      <h1>File a New Report:</h1>
+      Report Type:
+      <input type="radio" id="bug" value="bug" v-model="picked">
+      <label for="bug">Bug</label>
+      <p> or
+      <input type="radio" id="bright_idea" value="bright idea" v-model="picked">
+      <label for="bright_idea">Bright Idea</label>
+      
       <br/>
 
       description:
@@ -49,7 +59,10 @@
       Status:
       <input type="string" v-model="newStatus" />
       <br />
-      <button v-on:click="createReport()">Create Report</button>
+      <form v-on:submit.prevent="submit()">
+      Screenshot: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+      <input type="submit" value="Submit your screenshots">
+    </form>
     </div>
 
   </div>
@@ -101,7 +114,29 @@ export default {
       } else {
         this.currentReport = report;
       }
+    },
+    updateReport: function(report){
+      var params = {
+        suggested_fix: report.suggested_fix
+      };
+      axios.patch("/api/reports/" + report.id, params).then(reponse => {
+        this.currentPhoto = {};
+      });
+    },
+    setFile: function(event){
+      if(event.target.files.length > 0){
+        this.image_url = event.target.files[0];
+      }
+    },
+    submit: function(){
+      var formData = new FormData();
+      form.data.append("image_url",this.image_url);
+      formData.append("report_id", this.report.id);
+      axios.post("/api/images", formData).then(response =>{
+        this.$refs.fileInput.value = "";
+        this.report.images.push(reponse.data);
+      })
     }
-  }
+    }
 };
 </script>
