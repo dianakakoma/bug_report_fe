@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <img src="@/assets/happy-ladybug.png" width="100" />
+    <p>
+      <img src="@/assets/happy-ladybug.png" width="100" />
+    </p>
+
     <h1>{{ message }}</h1>
     <h2>A bug reporting tool built for the end user!</h2>
     <!-- Sign Up | Login | Logout Buttons -->
@@ -12,23 +15,27 @@
     |
     <button><a href="/logout">Logout</a></button>
     <hr />
-    <!-- Index Action - Report -->
+    <!-- Index Action for Reports -->
     <div v-for="report in reports">
       <p>Report ID:{{ report.id }}</p>
       <h2>Bug or Bright Idea: {{ report.report_type }}</h2>
       <h3>Report Description: {{ report.description }}</h3>
-      <p>Suggest Fix: {{ report.suggested_fix }}</p>
-      <p>Current Status:{{ report.status }}</p>
-      <a v-bind:href="report.url">{{ report.url }}</a>
-      <p>User Id: {{ report.user_id }}</p>
+      <!--Show Action -->
+      <button v-on:click="showReport(report)" style="background-color: blue; color:white">Show More...</button>
+      <div v-if="currentReport ===report">
+        <p>Suggest Fix: {{ report.suggested_fix }}</p>
+        <p>Current Status:{{ report.status }}</p>
+        <a v-bind:href="report.url">{{ report.url }}</a>
+        <p>Submitted by: {{ report.name }}</p>
+      </div>
       <p style="color:red">|</p>
     </div>
     <!-- New/Create Action - Reports -->
     <div>
       <h1>File a New Report</h1>
       Bug or Bright Idea:
-      <input type="text" v-model="newReport_type" />
-      <br />
+      <input type="text" v-model="newReporType" />
+      <br/>
 
       description:
       <input type="text" v-model="newDescription" />
@@ -37,20 +44,14 @@
       <input type="text" v-model="newSuggestedFix" />
       <br />
       URL:
-      <input type="string" v-model="newURL" />
+      <input type="text" v-model="newURL" />
       <br />
       Status:
       <input type="string" v-model="newStatus" />
       <br />
-      <!--User_id:
-      <input type="integer" v-model="newUserId" />
-      <br /> -->
-      <!-- insert ScreenShot URL here
-      Screenshot:
-      <input type="string" v-model="newScreenShot" />
-    -->
       <button v-on:click="createReport()">Create Report</button>
     </div>
+
   </div>
 </template>
 
@@ -62,7 +63,9 @@ export default {
   data: function() {
     return {
       message: "Bug Report!",
+      currentReport: {},
       reports: [],
+      newReportType: "",
       newDescription: "",
       newSuggestedFix: "",
       newURL: "",
@@ -70,7 +73,7 @@ export default {
     };
   },
   created: function() {
-    axios.get("api/reports").then((response) => {
+    axios.get("/api/reports").then((response) => {
       this.reports = response.data;
     });
   },
@@ -78,14 +81,26 @@ export default {
     createReport: function() {
       var params = {
         description: this.newDescription,
-        suggested_fix: this.newSuggestedFix,
+        suggestedFix: this.newSuggestedFix,
         url: this.newURL,
-        status: this.newStatus
+        status: this.newStatus,
+        reportType: this.newReport_type
       };
       axios.post("/api/reports", params).then((reponse) => {
         this.reports.push(reponse.data);
-        (this.newDescription = ""), (this.newReport_type = ""), (this.newURL = ""), (this.newStatus = "");
+        this.newDescription = ""; 
+        this.newReportType = "";
+        this.newSuggestedFix = "";
+        this.newURL = ""; 
+        this.newStatus = "";
       });
+    },
+    showReport: function(report){
+      if(this.currentReport === report){
+        this.currentReport = {};
+      } else {
+        this.currentReport = report;
+      }
     }
   }
 };
