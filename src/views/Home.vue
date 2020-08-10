@@ -15,6 +15,28 @@
     |
     <button><a href="/logout">Logout</a></button>
     <hr />
+    <!-- New/Create Action - Reports -->
+    <div style="text-align:left">
+      <h1>File a New Report</h1>
+      Bug or Bright Idea:
+      <input type="text" v-model="newReporType" />
+      <br />
+
+      description:
+      <input type="text" v-model="newDescription" />
+      <br />
+      suggested_fix:
+      <input type="text" v-model="newSuggestedFix" />
+      <br />
+      URL:
+      <input type="text" v-model="newURL" />
+      <br />
+      Status:
+      <input type="string" v-model="newStatus" />
+      <br />
+      <button v-on:click="createReport()">Create Report</button>
+    </div>
+
     <!-- Index Action for Reports -->
     <div style="text-align:left" v-for="report in reports">
       <p>Report ID:{{ report.id }}</p>
@@ -24,16 +46,18 @@
       <button v-on:click="showReport(report)" style="background-color: blue; color:white">Show More...</button>
       <div v-if="currentReport === report">
         <p>Suggested Fix: {{ report.suggested_fix }}</p>
+        <!-- Update/Patch - Report -->
+        <div>
+          Update the Fix:
+          <input type="text" v-model="report.suggested_fix.report" />
+          <button v-on:click="updateSuggestedFix(report)">Update Your Suggested Fix</button>
+        </div>
+        <!-- end update patch -->
         <p>Current Status:{{ report.status }}</p>
         <a v-bind:href="report.url">{{ report.url }}</a>
         <p>Submitted by: {{ report.name }}</p>
       </div>
-      <!-- Update/Patch - User 
-      <div>
-        <input type="text" v-model="user.department" />
-        <button v-on:click="updateUser(user)">Update Department</button>
-      </div>
-    -->
+
       <!-- Update/Patch - Report -->
       <div>
         Update the Fix:
