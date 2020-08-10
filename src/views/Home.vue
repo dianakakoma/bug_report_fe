@@ -49,7 +49,7 @@
         <!-- Update/Patch - Report -->
         <div>
           Update the Fix:
-          <input type="text" v-model="report.suggested_fix.report" />
+          <input type="text" v-model="report.suggested_fix" />
           <button v-on:click="updateSuggestedFix(report)">Update Your Suggested Fix</button>
         </div>
         <!-- end update patch -->
