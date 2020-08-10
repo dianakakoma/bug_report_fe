@@ -121,7 +121,7 @@ export default {
     },
     updateSuggestedFix: function(report) {
       var params = {
-        suggestedFix: report.suggested_fix
+        suggested_fix: report.suggested_fix
       };
       axios.patch("/api/users/" + report.id, params).then((response) => {
         this.currentUser = {};
