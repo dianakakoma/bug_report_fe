@@ -93,7 +93,7 @@ export default {
         suggestedFix: this.newSuggestedFix,
         url: this.newURL,
         status: this.newStatus,
-        reportType: this.newReport_type
+        reportType: this.newReportType
       };
       axios.post("/api/reports", params).then((reponse) => {
         this.reports.push(reponse.data);
