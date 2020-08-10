@@ -16,7 +16,7 @@
     <button><a href="/logout">Logout</a></button>
     <hr />
     <!-- Index Action for Reports -->
-    <div v-for="report in reports">
+    <div style="text-align:left" v-for="report in reports">
       <p>Report ID:{{ report.id }}</p>
       <h2>Bug or Bright Idea: {{ report.report_type }}</h2>
       <h3>Report Description: {{ report.description }}</h3>
@@ -41,7 +41,7 @@
       <h1 style="color:red">***</h1>
     </div>
     <!-- New/Create Action - Reports -->
-    <div>
+    <div style="text-align:left">
       <h1>File a New Report</h1>
       Bug or Bright Idea:
       <input type="text" v-model="newReporType" />
