@@ -113,7 +113,7 @@ export default {
     },
     updateUser: function(user) {
       var params = {
-        deparment: user.department
+        department: user.department
       };
       axios.patch("/api/users/" + user.id, params).then((response) => {
         this.currentUser = {};
