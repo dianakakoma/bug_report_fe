@@ -22,7 +22,7 @@
       <h3>Report Description: {{ report.description }}</h3>
       <!--Show Action -->
       <button v-on:click="showReport(report)" style="background-color: blue; color:white">Show More...</button>
-      <div v-if="currentReport ===report">
+      <div v-if="currentReport === report">
         <p>Suggest Fix: {{ report.suggested_fix }}</p>
         <p>Current Status:{{ report.status }}</p>
         <a v-bind:href="report.url">{{ report.url }}</a>
@@ -30,17 +30,22 @@
       </div>
       <!-- Update/Patch - User -->
       <div>
-        <input type="text" v-model="user.department"/>
+        <input type="text" v-model="user.department" />
         <button v-on:click="updateUser(user)">Update Department</button>
       </div>
-      <p style="color:red">***</p>
+      <!-- Update/Patch - Report -->
+      <div>
+        <input type="text" v-model="user.suggested_fix" />
+        <button v-on:click="updateSuggestedFix(report)">Update Your Suggested Fix</button>
+      </div>
+      <h1 style="color:red">***</h1>
     </div>
     <!-- New/Create Action - Reports -->
     <div>
       <h1>File a New Report</h1>
       Bug or Bright Idea:
       <input type="text" v-model="newReporType" />
-      <br/>
+      <br />
 
       description:
       <input type="text" v-model="newDescription" />
@@ -56,7 +61,6 @@
       <br />
       <button v-on:click="createReport()">Create Report</button>
     </div>
-
   </div>
 </template>
 
@@ -93,27 +97,35 @@ export default {
       };
       axios.post("/api/reports", params).then((reponse) => {
         this.reports.push(reponse.data);
-        this.newDescription = ""; 
+        this.newDescription = "";
         this.newReportType = "";
         this.newSuggestedFix = "";
-        this.newURL = ""; 
+        this.newURL = "";
         this.newStatus = "";
       });
     },
-    showReport: function(report){
-      if(this.currentReport === report){
+    showReport: function(report) {
+      if (this.currentReport === report) {
         this.currentReport = {};
       } else {
         this.currentReport = report;
       }
     },
-    updateUser: function(user){
+    updateUser: function(user) {
       var params = {
         deparment: user.department
       };
-      axios.patch("/api/users/" + user.id, params).then(response => {
+      axios.patch("/api/users/" + user.id, params).then((response) => {
         this.currentUser = {};
-      })
+      });
+    },
+    updateSuggestedFix: function(report) {
+      var params = {
+        suggestedFix: report.suggested_fix
+      };
+      axios.patch("/api/users/" + report.id, params).then((response) => {
+        this.currentUser = {};
+      });
     }
   }
 };
