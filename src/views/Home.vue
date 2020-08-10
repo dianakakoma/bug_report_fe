@@ -23,7 +23,7 @@
       <!--Show Action -->
       <button v-on:click="showReport(report)" style="background-color: blue; color:white">Show More...</button>
       <div v-if="currentReport === report">
-        <p>Suggest Fix: {{ report.suggested_fix }}</p>
+        <p>Suggested Fix: {{ report.suggested_fix }}</p>
         <p>Current Status:{{ report.status }}</p>
         <a v-bind:href="report.url">{{ report.url }}</a>
         <p>Submitted by: {{ report.name }}</p>
@@ -36,7 +36,8 @@
     -->
       <!-- Update/Patch - Report -->
       <div>
-        <input type="text" v-model="user.suggested_fix" />
+        Update the Fix:
+        <input type="text" v-model="report.suggested_fix" />
         <button v-on:click="updateSuggestedFix(report)">Update Your Suggested Fix</button>
       </div>
       <h1 style="color:red">***</h1>
@@ -127,7 +128,7 @@ export default {
       var params = {
         suggested_fix: report.suggested_fix
       };
-      axios.patch("/api/users/" + report.id, params).then((response) => {
+      axios.patch("/api/reports/" + report.id, params).then((response) => {
         this.currentUser = {};
       });
     }
