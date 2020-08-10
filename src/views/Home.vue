@@ -28,6 +28,11 @@
         <a v-bind:href="report.url">{{ report.url }}</a>
         <p>Submitted by: {{ report.name }}</p>
       </div>
+      <!-- Update/Patch - User -->
+      <div>
+        <input type="text" v-model="user.department"/>
+        <button v-on:click="updateUser(user)">Update Department</button>
+      </div>
       <p style="color:red">***</p>
     </div>
     <!-- New/Create Action - Reports -->
@@ -101,6 +106,14 @@ export default {
       } else {
         this.currentReport = report;
       }
+    },
+    updateUser: function(user){
+      var params = {
+        deparment: user.department
+      };
+      axios.patch("/api/users/" + user.id, params).then(response => {
+        this.currentUser = {};
+      })
     }
   }
 };
