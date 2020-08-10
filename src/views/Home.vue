@@ -37,7 +37,7 @@
       <!-- Update/Patch - Report -->
       <div>
         Update the Fix:
-        <input type="text" v-model="report.suggested_fix" />
+        <input type="text" v-model="report.suggested_fix.report" />
         <button v-on:click="updateSuggestedFix(report)">Update Your Suggested Fix</button>
       </div>
       <h1 style="color:red">***</h1>
@@ -129,7 +129,7 @@ export default {
         suggested_fix: report.suggested_fix
       };
       axios.patch("/api/reports/" + report.id, params).then((response) => {
-        this.currentUser = {};
+        this.currentReport = {};
       });
     }
   }
