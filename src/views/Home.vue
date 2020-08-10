@@ -19,7 +19,7 @@
     <div style="text-align:left">
       <h1>File a New Report</h1>
       Bug or Bright Idea:
-      <input type="text" v-model="newReporType" />
+      <input type="text" v-model="newReportType" />
       <br />
 
       description:
@@ -57,20 +57,13 @@
         <a v-bind:href="report.url">{{ report.url }}</a>
         <p>Submitted by: {{ report.name }}</p>
       </div>
-
-      <!-- Update/Patch - Report 
-      <div>
-        Update the Fix:
-        <input type="text" v-model="report.suggested_fix" />
-        <button v-on:click="updateSuggestedFix(report)">Update Your Suggested Fix</button>
-      </div> -->
       <h1 style="color:red">***</h1>
     </div>
     <!-- New/Create Action - Reports -->
     <div style="text-align:left">
       <h1>File a New Report</h1>
       Bug or Bright Idea:
-      <input type="text" v-model="newReporType" />
+      <input type="text" v-model="newReportType" />
       <br />
 
       description:
