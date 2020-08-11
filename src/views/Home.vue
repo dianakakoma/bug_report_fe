@@ -102,7 +102,14 @@ export default {
     };
   },
   created: function() {
-    axios.get("https://radiant-mesa-02892.herokuapp.com/api/reports").then((response) => {
+    axios({
+      method: "GET",
+      url: `https://cors-anywhere.herokuapp.com/https://radiant-mesa-02892.herokuapp.com/api/action`,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "application/json"
+      }
+    }).then((response) => {
       this.reports = response.data;
       console.log(response.data);
     });
