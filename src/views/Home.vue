@@ -38,6 +38,7 @@
     </div>
 
     <!-- Index Action for Reports -->
+    <h4>Scroll down to see what has already been submitted</h4>
     <div style="text-align:left" v-for="report in reports">
       <p>Report ID:{{ report.id }}</p>
       <h2>Bug or Bright Idea: {{ report.report_type }}</h2>
@@ -101,8 +102,9 @@ export default {
     };
   },
   created: function() {
-    axios.get("/api/reports").then((response) => {
+    axios.get("http://localhost:3000/api/reports").then((response) => {
       this.reports = response.data;
+      console.log(response.data);
     });
   },
   methods: {
@@ -114,7 +116,7 @@ export default {
         status: this.newStatus,
         reportType: this.newReportType
       };
-      axios.post("/api/reports", params).then((reponse) => {
+      axios.post("http://localhost:3000/api/reports", params).then((reponse) => {
         this.reports.push(reponse.data);
         this.newDescription = "";
         this.newReportType = "";
