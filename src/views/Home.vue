@@ -102,7 +102,7 @@ export default {
     };
   },
   created: function() {
-    axios.get("http://localhost:3000/api/reports").then((response) => {
+    axios.get("https://radiant-mesa-02892.herokuapp.com/api/reports").then((response) => {
       this.reports = response.data;
       console.log(response.data);
     });
@@ -116,7 +116,7 @@ export default {
         status: this.newStatus,
         reportType: this.newReportType
       };
-      axios.post("http://localhost:3000/api/reports", params).then((reponse) => {
+      axios.post("https://radiant-mesa-02892.herokuapp.com/api/reports", params).then((reponse) => {
         this.reports.push(reponse.data);
         this.newDescription = "";
         this.newReportType = "";
