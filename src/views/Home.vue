@@ -123,7 +123,15 @@ export default {
         status: this.newStatus,
         reportType: this.newReportType
       };
-      axios.post("https://radiant-mesa-02892.herokuapp.com/api/reports", params).then((reponse) => {
+      axios({
+        method: "POST",
+        url: `https://cors-anywhere.herokuapp.com/https://radiant-mesa-02892.herokuapp.com/api/reports`,
+        data: params,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-type": "application/json"
+        }
+      }).then((reponse) => {
         this.reports.push(reponse.data);
         this.newDescription = "";
         this.newReportType = "";
