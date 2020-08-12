@@ -78,9 +78,11 @@
       <br />
       Status:
       <input type="string" v-model="newStatus" />
-      <br />
-      <button v-on:click="createReport()">Create Report</button>
+      <div>
+        <input type="file" @change="onfileselected" />
+      </div>
     </div>
+    <button v-on:click="createReport()">Create Report</button>
   </div>
 </template>
 
@@ -104,7 +106,7 @@ export default {
   created: function() {
     axios({
       method: "GET",
-      url: `https://cors-anywhere.herokuapp.com/,https://radiant-mesa-02892.herokuapp.com/api/reports`,
+      url: `https://cors-anywhere.herokuapp.com/https://radiant-mesa-02892.herokuapp.com/api/reports`,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-type": "application/json"
@@ -115,6 +117,9 @@ export default {
     });
   },
   methods: {
+    onFileSelected(event) {
+      console.log(event);
+    },
     createReport: function() {
       var params = {
         description: this.newDescription,
