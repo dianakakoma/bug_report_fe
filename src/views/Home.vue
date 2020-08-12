@@ -79,7 +79,7 @@
       Status:
       <input type="string" v-model="newStatus" />
       <div>
-        <input type="file" @change="onfileselected" />
+        <input type="file" @change="onfileSelected" />
       </div>
     </div>
     <button v-on:click="createReport()">Create Report</button>
