@@ -34,6 +34,9 @@
       Status:
       <input type="string" v-model="newStatus" />
       <br />
+      <div>
+        <input type="file" @change="onFileSelected" />
+      </div>
       <button v-on:click="createReport()">Create Report</button>
     </div>
 
@@ -78,9 +81,6 @@
       <br />
       Status:
       <input type="string" v-model="newStatus" />
-      <div>
-        <input type="file" @change="onfileSelected" />
-      </div>
     </div>
     <button v-on:click="createReport()">Create Report</button>
   </div>
