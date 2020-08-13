@@ -34,9 +34,11 @@
       Status:
       <input type="string" v-model="newStatus" />
       <br />
-      <div>
-        <input type="file" @change="onFileSelected" />
-      </div>
+      <form v-on:submit.prevent="submit()">
+        Screenshot:
+        <input type="file" v-on:change="setFile($event)" ref="fileInput" />
+        <input type="submit" value="Submit your Screenshot" />
+      </form>
       <button v-on:click="createReport()">Create Report</button>
     </div>
 
@@ -100,7 +102,9 @@ export default {
       newDescription: "",
       newSuggestedFix: "",
       newURL: "",
-      newStatus: ""
+      newStatus: "",
+      selectedFile: null,
+      image: ""
     };
   },
   created: function() {
@@ -117,8 +121,19 @@ export default {
     });
   },
   methods: {
-    onFileSelected(event) {
-      console.log(event);
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.image = event.target.files[0];
+      }
+    },
+    sumbmit: function() {
+      var formData = new FormData();
+      formData.append("image", this.image);
+      formData.append("report_id", this.report.id);
+      axios.post("https://nifty-hypatia-8be8d8.netlify.app/", formData).then((response) => {
+        this.$refs.fileInput.value = "";
+        this.property.images.push(response.data);
+      });
     },
     createReport: function() {
       var params = {
