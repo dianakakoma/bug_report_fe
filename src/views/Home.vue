@@ -126,13 +126,13 @@ export default {
         this.image = event.target.files[0];
       }
     },
-    sumbmit: function() {
+    submit: function() {
       var formData = new FormData();
       formData.append("image", this.image);
       formData.append("report_id", this.report.id);
-      axios.post("https://nifty-hypatia-8be8d8.netlify.app/", formData).then((response) => {
+      axios.post("https://radiant-mesa-02892.herokuapp.com/", formData).then((response) => {
         this.$refs.fileInput.value = "";
-        this.property.images.push(response.data);
+        this.reports.images.push(response.data);
       });
     },
     createReport: function() {
