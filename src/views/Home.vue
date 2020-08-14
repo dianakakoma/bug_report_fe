@@ -110,11 +110,11 @@ export default {
   created: function() {
     axios({
       method: "GET",
-      url: `https://radiant-mesa-02892.herokuapp.com/api/reports`,
-      headers: {
+      url: `https://radiant-mesa-02892.herokuapp.com/api/reports`
+      /*headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-type": "application/json"
-      }
+      }*/
     }).then((response) => {
       this.reports = response.data;
       console.log(response.data);
