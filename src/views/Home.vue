@@ -34,6 +34,11 @@
       Status:
       <input type="string" v-model="newStatus" />
       <br />
+      <form v-on:submit.prevent="submit()">
+        Screenshot:
+        <input type="file" v-on:change="setFile($event)" ref="fileInput" />
+        <input type="submit" value="Submit your Screenshot" />
+      </form>
       <button v-on:click="createReport()">Create Report</button>
     </div>
 
@@ -78,9 +83,8 @@
       <br />
       Status:
       <input type="string" v-model="newStatus" />
-      <br />
-      <button v-on:click="createReport()">Create Report</button>
     </div>
+    <button v-on:click="createReport()">Create Report</button>
   </div>
 </template>
 
@@ -98,23 +102,39 @@ export default {
       newDescription: "",
       newSuggestedFix: "",
       newURL: "",
-      newStatus: ""
+      newStatus: "",
+      selectedFile: null,
+      image: ""
     };
   },
   created: function() {
     axios({
       method: "GET",
-      url: `https://cors-anywhere.herokuapp.com/,https://radiant-mesa-02892.herokuapp.com/api/reports`,
-      headers: {
+      url: `https://radiant-mesa-02892.herokuapp.com/api/reports`
+      /*headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-type": "application/json"
-      }
+      }*/
     }).then((response) => {
       this.reports = response.data;
       console.log(response.data);
     });
   },
   methods: {
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.image = event.target.files[0];
+      }
+    },
+    submit: function() {
+      var formData = new FormData();
+      formData.append("image", this.image);
+      formData.append("report_id", this.report.id);
+      axios.post("https://radiant-mesa-02892.herokuapp.com/", formData).then((response) => {
+        this.$refs.fileInput.value = "";
+        this.reports.images.push(response.data);
+      });
+    },
     createReport: function() {
       var params = {
         description: this.newDescription,
@@ -125,7 +145,7 @@ export default {
       };
       axios({
         method: "POST",
-        url: `https://cors-anywhere.herokuapp.com/https://radiant-mesa-02892.herokuapp.com/api/reports`,
+        url: "https://radiant-mesa-02892.herokuapp.com/api/reports",
         data: params,
         headers: {
           "Access-Control-Allow-Origin": "*",
