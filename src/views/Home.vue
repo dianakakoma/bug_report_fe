@@ -145,7 +145,7 @@ export default {
       };
       axios({
         method: "POST",
-        url: `https://cors-anywhere.herokuapp.com/https://radiant-mesa-02892.herokuapp.com/api/reports`,
+        url: "https://radiant-mesa-02892.herokuapp.com/api/reports",
         data: params,
         headers: {
           "Access-Control-Allow-Origin": "*",
