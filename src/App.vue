@@ -1,37 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/about">About</router-link>
-    </div>
+    <header id="header" class="alt">
+      <h1 id="logo">
+        <a href="index.html">
+          Twenty
+          <span>by HTML5 UP</span>
+        </a>
+      </h1>
+      <nav id="nav">
+        <ul>
+          <li class="current"><a href="index.html">Welcome</a></li>
+          <li class="submenu">
+            <a href="#">Layouts</a>
+            <ul>
+              <li><a href="/about">About Bug Report</a></li>
+              <li><a href="right-sidebar.html">Right</a></li>
+              <li><a href="no-sidebar.html">No Sidebar</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li class="submenu">
+                <a href="#">Submenu</a>
+                <ul>
+                  <li><a href="#">Dolore Sed</a></li>
+                  <li><a href="#">Consequat</a></li>
+                  <li><a href="#">Lorem Magna</a></li>
+                  <li><a href="#">Sed Magna</a></li>
+                  <li><a href="#">Ipsum Nisl</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#" class="button primary">Sign Up</a></li>
+        </ul>
+      </nav>
+    </header>
     <router-view />
+    <footer>
+      <ul class="buttons stacked">
+        <li><a href="#main" class="button fit scrolly">Tell Me More</a></li>
+      </ul>
+    </footer>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-#signup_btn {
-  color: #33dbff;
-}
-</style>
+<style></style>
