@@ -7,6 +7,8 @@
     <h1>{{ message }}</h1>
     <h2>A bug reporting tool built for the end user!</h2>
     <!-- Sign Up | Login | Logout Buttons -->
+    <!-- authentication method may not work with Netlify. See: https://docs.netlify.com/visitor-access/identity/usage-and-billing/#change-levels
+
     <button class="signup_btn"><a href="/signup">Sign up!</a></button>
     |
     <button>
@@ -14,6 +16,11 @@
     </button>
     |
     <button><a href="/logout">Logout</a></button>
+  -->
+    <button>Sign Up!</button>
+    <button>Login</button>
+    <button>Logout</button>
+
     <hr />
     <!-- New/Create Action - Reports -->
     <div style="text-align:left">
